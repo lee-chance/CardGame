@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  GameView.swift
 //  CardGame
 //
 //  Created by Changsu Lee on 2021/07/24.
@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct GameView: View {
+    
+    @Binding var presented: Bool
+    var isServer: Bool = false
+    @Binding var playerName: String
     
     @State private var playerCard = Card(rank: .back, suit: .back).value
     @State private var computerCard = Card(rank: .back, suit: .back).value
@@ -17,15 +21,35 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
-            // background Image
-            Image("background")
-                .resizable()
-                .ignoresSafeArea()
             
-            Color(.sRGB, white: 0.3, opacity: 0.5)
-                .ignoresSafeArea()
+            Background()
             
             VStack {
+                HStack {
+                    Button(action: {
+                        presented = false
+                    }, label: {
+                        Text("X")
+                            .font(.body)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color.pink)
+                            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    })
+                    Spacer()
+                    if isServer {
+                        Text("기다리는중..")
+                            .font(.body)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color.white)
+                            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                        Spacer()
+                        Text("X")
+                            .font(.body)
+                            .fontWeight(.heavy)
+                            .foregroundColor(Color(red: 1.0, green: 0.0, blue: 0.0, opacity: 0.0))
+                            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    }
+                }
                 Spacer()
                 HStack {
                     Spacer()
@@ -58,10 +82,8 @@ struct ContentView: View {
                     // update the score
                     if let isPlayerWin = isPlayerWin(player: pCard, computer: cCard) {
                         if isPlayerWin {
-                            print("player win")
                             playerScore += 1
                         } else {
-                            print("computer win")
                             computerScore += 1
                         }
                     } else {
@@ -79,7 +101,7 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     VStack {
-                        Text("Player")
+                        Text(playerName)
                             .font(.headline)
                             .foregroundColor(Color.white)
                             .padding(.bottom, 8.0)
@@ -89,7 +111,7 @@ struct ContentView: View {
                     }
                     Spacer()
                     VStack {
-                        Text("Computer")
+                        Text(isServer ? "User 2" : "Computer")
                             .font(.headline)
                             .foregroundColor(Color.white)
                             .padding(.bottom, 8.0)
@@ -103,6 +125,7 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
             }
+            .padding(.horizontal)
         }
     }
     
@@ -137,13 +160,14 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct GameView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
-            ContentView()
-//            ContentView()
+            GameView(presented: .constant(true), playerName: .constant("Player"))
+//            GameView()
 //                .previewDevice("iPhone 12 mini")
-//            ContentView()
+//            GameView()
 //                .previewDevice("iPod touch (7th generation)")
         }
     }
