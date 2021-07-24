@@ -212,15 +212,11 @@ struct CCGameView: View {
     }
 }
 
-struct GameView_Previews: PreviewProvider {
+struct CCGameView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
             CCGameView(presented: .constant(true), playerName: .constant("Player"))
-//            CCGameView()
-//                .previewDevice("iPhone 12 mini")
-//            GameView()
-//                .previewDevice("iPod touch (7th generation)")
         }
     }
 }

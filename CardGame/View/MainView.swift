@@ -9,49 +9,76 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State private var localGameIsPresent = false
-    @State private var serverGameIsPresent = false
-    @State private var name: String = ""
+    @State private var CCIsPresent = false
+    @State private var IHIsPresent = false
+    @State private var BWIsPresent = false
     
     var body: some View {
         ZStack {
+            
             Background()
             
-            VStack {
-                Spacer()
-                TextField("Enter your nickname!", text: $name)
-                    .padding(.all)
-                    .frame(width: 250.0)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button(action: {
-                    localGameIsPresent = !name.isEmpty
-                }, label: {
-                    Text("vs COMPUTER")
-                        .font(.title)
-                        .foregroundColor(Color.white)
-                        .padding(.all)
-                })
-                .fullScreenCover(isPresented: $localGameIsPresent, content: {
-                    GameView(presented: $localGameIsPresent, playerName: $name)
-                })
-                
-                Button(action: {
-                    serverGameIsPresent = !name.isEmpty
-                }, label: {
-                    Text("vs USER")
-                        .font(.title)
-                        .foregroundColor(Color.white)
-                        .padding(.all)
-                })
-                .fullScreenCover(isPresented: $serverGameIsPresent, content: {
-                    GameView(presented: $serverGameIsPresent, isServer: true, playerName: $name)
-                })
-                Spacer()
-                Spacer()
-            }
+            mView()
+                .frame(width: 320.0, height: 320.0)
             
+            VStack {
+                
+                Text("Game List")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.white)
+                
+                Button(action: {
+                    CCIsPresent = true
+                }, label: {
+                    Text("Card Compare")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.yellow)
+                })
+                .padding(.all)
+                .fullScreenCover(isPresented: $CCIsPresent, content: {
+                    CCLobbyView(presented: $CCIsPresent)
+                })
+                
+                Button(action: {
+                    IHIsPresent = true
+                }, label: {
+                    Text("Indian Holdem")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.yellow)
+                })
+                .padding(.all)
+                .fullScreenCover(isPresented: $IHIsPresent, content: {
+                    IHLobbyView(presented: $IHIsPresent)
+                })
+                
+                Button(action: {
+                    BWIsPresent = true
+                }, label: {
+                    Text("Black and White")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.yellow)
+                })
+                .padding(.all)
+                .fullScreenCover(isPresented: $BWIsPresent, content: {
+                    BWLobbyView(presented: $BWIsPresent)
+                })
+            }
         }
+    }
+}
+
+struct mView: UIViewRepresentable {
+    func makeUIView(context: Context) -> some UIView {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.3, alpha: 0.5)
+        return view
+    }
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        
     }
 }
 
