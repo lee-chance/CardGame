@@ -64,7 +64,7 @@ struct IHLobbyView: View {
 
         }
         .onAppear(perform: {
-            print("Appeared!")
+            SocketIOManager.shared.establishConnection(namespace: "/indianHoldem")
         })
     }
     

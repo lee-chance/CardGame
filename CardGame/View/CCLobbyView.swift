@@ -49,7 +49,7 @@ struct CCLobbyView: View {
                         print("닉네임을 입력해라~")
                     } else {
                         serverGameIsPresent = true
-                        SocketIOManager.shared.enter(room: "a", nickname: name)
+                        SocketIOManager.shared.enter(nickname: name)
                     }
                 }, label: {
                     Text("vs USER")
@@ -66,7 +66,7 @@ struct CCLobbyView: View {
             
         }
         .onAppear(perform: {
-            print("Appeared!")
+            SocketIOManager.shared.establishConnection(namespace: "/cardCompare")
         })
     }
     

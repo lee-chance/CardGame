@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E03BDC126AC3FE10012F532 /* BWGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC026AC3FE00012F532 /* BWGameView.swift */; };
+		2E03BDC326AC683C0012F532 /* MyDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC226AC683C0012F532 /* MyDeck.swift */; };
+		2E03BDC526AC6B8F0012F532 /* OtherDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */; };
 		2E82B80626AB9AA700791E8A /* CardGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E82B80526AB9AA700791E8A /* CardGameApp.swift */; };
 		2E82B80826AB9AA700791E8A /* CCGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E82B80726AB9AA700791E8A /* CCGameView.swift */; };
 		2E82B80A26AB9AA800791E8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E82B80926AB9AA800791E8A /* Assets.xcassets */; };
@@ -27,6 +30,9 @@
 /* Begin PBXFileReference section */
 		0DB743DDED9B2A97C168F8C2 /* Pods-CardGame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGame.release.xcconfig"; path = "Target Support Files/Pods-CardGame/Pods-CardGame.release.xcconfig"; sourceTree = "<group>"; };
 		245C958985579E92532FEFFC /* Pods_CardGame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E03BDC026AC3FE00012F532 /* BWGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BWGameView.swift; sourceTree = "<group>"; };
+		2E03BDC226AC683C0012F532 /* MyDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDeck.swift; sourceTree = "<group>"; };
+		2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherDeck.swift; sourceTree = "<group>"; };
 		2E82B80226AB9AA700791E8A /* CardGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E82B80526AB9AA700791E8A /* CardGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameApp.swift; sourceTree = "<group>"; };
 		2E82B80726AB9AA700791E8A /* CCGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCGameView.swift; sourceTree = "<group>"; };
@@ -157,7 +163,10 @@
 		2EAF33E426AC0A13007C55A4 /* Black and White */ = {
 			isa = PBXGroup;
 			children = (
+				2E03BDC026AC3FE00012F532 /* BWGameView.swift */,
 				2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */,
+				2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */,
+				2E03BDC226AC683C0012F532 /* MyDeck.swift */,
 			);
 			name = "Black and White";
 			sourceTree = "<group>";
@@ -301,8 +310,11 @@
 				2E82B80626AB9AA700791E8A /* CardGameApp.swift in Sources */,
 				2EAF33DB26ABD883007C55A4 /* SocketIOManager.swift in Sources */,
 				2EAF33E726AC0B82007C55A4 /* IHLobbyView.swift in Sources */,
+				2E03BDC126AC3FE10012F532 /* BWGameView.swift in Sources */,
 				2EAF33D626ABD6E2007C55A4 /* MyAppDelegate.swift in Sources */,
 				2EAF33D826ABD766007C55A4 /* MySceneDelegate.swift in Sources */,
+				2E03BDC526AC6B8F0012F532 /* OtherDeck.swift in Sources */,
+				2E03BDC326AC683C0012F532 /* MyDeck.swift in Sources */,
 				2EAF33D426ABC5C0007C55A4 /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

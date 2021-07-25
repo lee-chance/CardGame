@@ -13,6 +13,8 @@ struct MainView: View {
     @State private var IHIsPresent = false
     @State private var BWIsPresent = false
     
+    @State private var showingAlert = false
+    
     var body: some View {
         ZStack {
             
@@ -42,7 +44,8 @@ struct MainView: View {
                 })
                 
                 Button(action: {
-                    IHIsPresent = true
+                    showingAlert = true
+//                    IHIsPresent = true
                 }, label: {
                     Text("Indian Holdem")
                         .font(.largeTitle)
@@ -53,9 +56,13 @@ struct MainView: View {
                 .fullScreenCover(isPresented: $IHIsPresent, content: {
                     IHLobbyView(presented: $IHIsPresent)
                 })
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Not yet open."), message: Text(""), dismissButton: .default(Text("Ok")))
+                }
                 
                 Button(action: {
-                    BWIsPresent = true
+                    showingAlert = true
+//                    BWIsPresent = true
                 }, label: {
                     Text("Black and White")
                         .font(.largeTitle)
@@ -66,6 +73,9 @@ struct MainView: View {
                 .fullScreenCover(isPresented: $BWIsPresent, content: {
                     BWLobbyView(presented: $BWIsPresent)
                 })
+                .alert(isPresented: $showingAlert) {
+                    Alert(title: Text("Not yet open."), message: Text(""), dismissButton: .default(Text("Ok")))
+                }
             }
         }
     }

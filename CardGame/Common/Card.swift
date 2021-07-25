@@ -9,7 +9,7 @@ import Foundation
 
 struct Card {
     enum Suit: Character {
-        case spades = "♠︎", hearts = "♡", diamonds = "♢", clubs = "♣︎", back = "B"
+        case spades = "♠︎", hearts = "♡", diamonds = "♢", clubs = "♣︎", back = "B", redBack = "R", blackBack = "b"
         
         var rawInt: Int {
             switch self {
@@ -23,7 +23,7 @@ struct Card {
     }
     
     enum Rank: Int {
-        case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king, back
+        case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king, back, redBack, blackBack
         
         var toString: String {
             switch self {
@@ -41,6 +41,26 @@ struct Card {
         if rank == .back || suit == .back {
             return "Back"
         }
+        if rank == .redBack || suit == .redBack {
+            return "redBack"
+        }
+        if rank == .blackBack || suit == .blackBack {
+            return "blackBack"
+        }
         return "\(rank.toString)\(suit.rawValue)"
+    }
+    
+    var isBlack: Bool {
+        if suit == .spades || suit == .clubs {
+            return true
+        }
+        return false
+    }
+    
+    var isRed: Bool {
+        if suit == .hearts || suit == .diamonds {
+            return true
+        }
+        return false
     }
 }

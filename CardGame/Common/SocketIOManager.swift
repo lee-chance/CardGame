@@ -22,18 +22,17 @@ class SocketIOManager: NSObject {
     var roomInfo: RoomInfo?
     var gameInfo: GameInfo?
     
-    override init() {
-        super.init()
-        // test룸 생성
-        socket = manager.defaultSocket
+//    override init() {
+//        super.init()
+//        socket = manager.defaultSocket
         
-        socket.on(clientEvent: .connect) { (data, ack) in
-            print("Connected")
-//            self?.socket.emit("NodeJS Server Port", "Hi Node.JS server!")
-        }
-    }
+//        socket.on(clientEvent: .connect) { (data, ack) in
+//            print("Connected")
+//        }
+//    }
     
-    func establishConnection() {
+    func establishConnection(namespace: String) {
+        socket = manager.socket(forNamespace: namespace)
         socket.connect()
     }
     
@@ -41,16 +40,16 @@ class SocketIOManager: NSObject {
         socket.disconnect()
     }
     
-    func enter(room: String, nickname: String) {
-        socket.emit("enter room", ["room": room, "nickname": nickname])
+    func enter(nickname: String) {
+        socket.emit("enter room", ["nickname": nickname])
     }
     
-    func leave(room: String, nickname: String) {
-        socket.emit("leave room", ["room": room, "nickname": nickname])
+    func leave(user: String) {
+        socket.emit("leave room", ["user": user])
     }
     
-    func deal(room: String) {
-        socket.emit("deal", ["room": room])
+    func deal() {
+        socket.emit("deal")
     }
     
     func listenForRoomInfo(handler: @escaping (_ info: RoomInfo)->Void) {
@@ -83,11 +82,18 @@ class SocketIOManager: NSObject {
         }
     }
     
+    func offListeners() {
+        socket.off("room info")
+        socket.off("game info")
+    }
+    
 }
 
 struct RoomInfo: Codable {
-    let isFull: Bool
-    let user: [String]
+//    let isFull: Bool
+//    let user: [String]
+    let user1: String
+    let user2: String
 }
 
 struct GameInfo: Codable {

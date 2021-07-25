@@ -13,11 +13,10 @@ struct CCGameView: View {
     @Binding var playerName: String
     var isServer: Bool = false
     
-    @State var pName: String = "USER 1"
-    @State var cName: String = "USER 2"
-    
     @State private var playerCard = Card(rank: .back, suit: .back).value
     @State private var computerCard = Card(rank: .back, suit: .back).value
+    @State private var pName: String = "USER 1"
+    @State private var cName: String = "USER 2"
     @State private var playerScore = 0
     @State private var computerScore = 0
     
@@ -32,8 +31,13 @@ struct CCGameView: View {
                     Button(action: {
                         presented = false
                         if isServer {
-                            SocketIOManager.shared.leave(room: "a", nickname: playerName)
+                            if playerName == pName {
+                                SocketIOManager.shared.leave(user: "U1")
+                            } else {
+                                SocketIOManager.shared.leave(user: "U2")
+                            }
                         }
+                        SocketIOManager.shared.offListeners()
                     }, label: {
                         Text("X")
                             .font(.body)
@@ -83,7 +87,7 @@ struct CCGameView: View {
                 Button(action: {
                     
                     if isServer {
-                        SocketIOManager.shared.deal(room: "a")
+                        SocketIOManager.shared.deal()
                     } else {
                         // generate a random number
                         let playerSuitRandom = Int.random(in: 0...3)
@@ -136,15 +140,8 @@ struct CCGameView: View {
         .onAppear(perform: {
             if isServer {
                 SocketIOManager.shared.listenForRoomInfo { roomInfo in
-                    let users = roomInfo.user
-                    if users.count == 1 {
-                        pName = users[0]
-                        cName = "USER 2"
-                    }
-                    if users.count == 2 {
-                        pName = users[0]
-                        cName = users[1]
-                    }
+                    pName = roomInfo.user1
+                    cName = roomInfo.user2
                 }
                 SocketIOManager.shared.listenForGameInfo { gameInfo in
                     play(user1SuitRandom: gameInfo.user1SuitRandom,
