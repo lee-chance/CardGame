@@ -13,8 +13,8 @@ struct CCGameView: View {
     @Binding var playerName: String
     var isServer: Bool = false
     
-    @State private var playerCard = Card(rank: .back, suit: .back).value
-    @State private var computerCard = Card(rank: .back, suit: .back).value
+    @State private var playerCard = Card(face: .redBack).value
+    @State private var computerCard = Card(face: .blackBack).value
     @State private var pName: String = "USER 1"
     @State private var cName: String = "USER 2"
     @State private var playerScore = 0

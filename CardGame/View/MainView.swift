@@ -30,6 +30,7 @@ struct MainView: View {
                     .fontWeight(.heavy)
                     .foregroundColor(Color.white)
                 
+                // Card Compare
                 Button(action: {
                     CCIsPresent = true
                 }, label: {
@@ -38,11 +39,13 @@ struct MainView: View {
                         .fontWeight(.bold)
                         .foregroundColor(Color.yellow)
                 })
-                .padding(.all)
+                .padding()
                 .fullScreenCover(isPresented: $CCIsPresent, content: {
                     CCLobbyView(presented: $CCIsPresent)
                 })
                 
+                
+                // Indian Holdem
                 Button(action: {
                     showingAlert = true
 //                    IHIsPresent = true
@@ -52,7 +55,7 @@ struct MainView: View {
                         .fontWeight(.bold)
                         .foregroundColor(Color.yellow)
                 })
-                .padding(.all)
+                .padding()
                 .fullScreenCover(isPresented: $IHIsPresent, content: {
                     IHLobbyView(presented: $IHIsPresent)
                 })
@@ -60,22 +63,20 @@ struct MainView: View {
                     Alert(title: Text("Not yet open."), message: Text(""), dismissButton: .default(Text("Ok")))
                 }
                 
+                
+                // Black and White
                 Button(action: {
-                    showingAlert = true
-//                    BWIsPresent = true
+                    BWIsPresent = true
                 }, label: {
                     Text("Black and White")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(Color.yellow)
                 })
-                .padding(.all)
+                .padding()
                 .fullScreenCover(isPresented: $BWIsPresent, content: {
                     BWLobbyView(presented: $BWIsPresent)
                 })
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Not yet open."), message: Text(""), dismissButton: .default(Text("Ok")))
-                }
             }
         }
     }

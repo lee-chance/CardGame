@@ -22,7 +22,7 @@ struct CCLobbyView: View {
                 TitleBar(presented: $presented, title: "Card Compare")
                 Spacer()
                 TextField("Enter your nickname!", text: $name)
-                    .padding(.all)
+                    .padding()
                     .frame(width: 250.0)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 

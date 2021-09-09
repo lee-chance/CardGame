@@ -8,8 +8,17 @@
 import Foundation
 
 struct Card {
+    
+    let face: Face, rank: Rank, suit: Suit
+    
+    enum Face: Character {
+        case front = "f"
+        case redBack = "r"
+        case blackBack = "b"
+    }
+    
     enum Suit: Character {
-        case spades = "♠︎", hearts = "♡", diamonds = "♢", clubs = "♣︎", back = "B", redBack = "R", blackBack = "b"
+        case spades = "♠︎", hearts = "♡", diamonds = "♢", clubs = "♣︎", back = "b"
         
         var rawInt: Int {
             switch self {
@@ -23,7 +32,8 @@ struct Card {
     }
     
     enum Rank: Int {
-        case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king, back, redBack, blackBack
+        case ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
+        case back = 0
         
         var toString: String {
             switch self {
@@ -35,19 +45,30 @@ struct Card {
             }
         }
     }
+}
+
+extension Card {
+    init(face: Face) {
+        self.init(face: face, rank: .back, suit: .back)
+    }
     
-    let rank: Rank, suit: Suit
+    init(rank: Rank, suit: Suit) {
+        self.init(face: .front, rank: rank, suit: suit)
+    }
+}
+
+extension Card {
     var value: String {
-        if rank == .back || suit == .back {
+        switch face {
+        case .front:
+            return "\(rank.toString)\(suit.rawValue)"
+        case .redBack:
+            return "redBack"
+        case .blackBack:
+            return "blackBack"
+        default:
             return "Back"
         }
-        if rank == .redBack || suit == .redBack {
-            return "redBack"
-        }
-        if rank == .blackBack || suit == .blackBack {
-            return "blackBack"
-        }
-        return "\(rank.toString)\(suit.rawValue)"
     }
     
     var isBlack: Bool {

@@ -22,7 +22,7 @@ struct BWLobbyView: View {
                 TitleBar(presented: $presented, title: "Black and White")
                 Spacer()
                 TextField("Enter your nickname!", text: $name)
-                    .padding(.all)
+                    .padding()
                     .frame(width: 250.0)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
@@ -37,7 +37,7 @@ struct BWLobbyView: View {
                     Text("vs COMPUTER")
                         .font(.title)
                         .foregroundColor(Color.white)
-                        .padding(.all)
+                        .padding()
                 })
                 .fullScreenCover(isPresented: $localGameIsPresent, content: {
                     BWGameView(presented: $localGameIsPresent, playerName: $name)

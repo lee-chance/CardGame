@@ -19,7 +19,7 @@ struct BWGameView: View {
     @State private var computerScore = 0
     
     @State private var playerSelectedCard: Card = Card(rank: .ace, suit: .spades)
-    @State private var otherSelectedCard: Card = Card(rank: .redBack, suit: .redBack)
+    @State private var otherSelectedCard: Card = Card(face: .redBack)
     @State private var playerCardClickable: Bool = true
     @State private var myDeck = [
         Card(rank: .ace, suit: .spades),
