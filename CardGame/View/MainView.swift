@@ -21,7 +21,7 @@ struct MainView: View {
             Background()
             
             mView()
-                .frame(width: 320.0, height: 320.0)
+                .frame(width: 320.ratioConstant, height: 320.ratioConstant)
             
             VStack {
                 

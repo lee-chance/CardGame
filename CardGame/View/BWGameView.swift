@@ -18,9 +18,8 @@ struct BWGameView: View {
     @State private var playerScore = 0
     @State private var computerScore = 0
     
-    @State private var playerSelectedCard: Card = Card(rank: .ace, suit: .spades)
-    @State private var otherSelectedCard: Card = Card(face: .redBack)
-    @State private var playerCardClickable: Bool = true
+    @State private var playerSelectedCard: Card = Card.blackBack()
+    @State private var otherSelectedCard: Card = Card.redBack()
     @State private var myDeck = [
         Card(rank: .ace, suit: .spades),
         Card(rank: .two, suit: .hearts),
@@ -46,6 +45,12 @@ struct BWGameView: View {
         Card(rank: .ten, suit: .diamonds),
     ]
     
+    @State private var playerCardClickable: Bool = true
+    @State private var open: Bool = false
+    
+    private let redCard = Card.redBack().value
+    private let blackCard = Card.blackBack().value
+    
     var body: some View {
         
         ZStack {
@@ -64,10 +69,10 @@ struct BWGameView: View {
                 // other card
                 VStack {
                     Spacer()
-                    Image(otherSelectedCard.value)
+                    Image(open ? otherSelectedCard.value : otherSelectedCard.isRed ? redCard : blackCard)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 80.0)
+                        .frame(width: 80.0.ratioConstant)
                     Spacer()
                 }
                 
@@ -76,21 +81,23 @@ struct BWGameView: View {
                     Spacer()
                     VStack {
                         Text(pName)
-                            .font(.headline)
+                            .font(.system(size: 16.ratioConstant))
+                            .fontWeight(.semibold)
                             .foregroundColor(Color.white)
-                            .padding(.bottom, 8.0)
+                            .padding(.bottom, 4.ratioConstant)
                         Text(String(playerScore))
-                            .font(.largeTitle)
+                            .font(.system(size: 36.ratioConstant))
                             .foregroundColor(Color.white)
                     }
                     Spacer()
                     VStack {
                         Text(cName)
-                            .font(.headline)
+                            .font(.system(size: 16.ratioConstant))
+                            .fontWeight(.semibold)
                             .foregroundColor(Color.white)
-                            .padding(.bottom, 8.0)
+                            .padding(.bottom, 4.ratioConstant)
                         Text(String(computerScore))
-                            .font(.largeTitle)
+                            .font(.system(size: 36.ratioConstant))
                             .foregroundColor(Color.white)
                     }
                     Spacer()
@@ -100,19 +107,19 @@ struct BWGameView: View {
                 VStack {
                     Spacer()
                     Button(action: {
-                        playerCardClickable = false
                         play()
                     }, label: {
                         Text("Deal")
+                            .font(.system(size: 20.ratioConstant))
                             .foregroundColor(Color.red)
                             .padding(.horizontal)
-                            .padding(.vertical, 4.0)
+                            .padding(.vertical, 4.ratioConstant)
                     })
-                    .background(Color(.black))
+                    .background(Color.black)
                     Image(playerSelectedCard.value)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 80.0)
+                        .frame(width: 80.0.ratioConstant)
                     Spacer()
                 }
                 
@@ -134,14 +141,22 @@ struct BWGameView: View {
             } else {
                 pName = playerName
                 cName = "Computer"
+                
+                reset()
             }
         })
     }
     
     private func play() {
-        let computerRand = Int.random(in: 0..<otherDeck.count)
-        let computerCard = otherDeck[computerRand]
-        otherSelectedCard = computerCard
+        guard !open else { return }
+        
+        guard myDeck.contains(playerSelectedCard) else {
+            print("카드를 선택해라~")
+            return
+        }
+        
+        open = true
+        playerCardClickable = false
         
         // check
         let computerRank = otherSelectedCard.rank.rawValue
@@ -160,6 +175,21 @@ struct BWGameView: View {
         myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
         
         playerCardClickable = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            reset()
+        }
+    }
+    
+    private func reset() {
+        computerSetup()
+        
+        open = false
+    }
+    
+    private func computerSetup() {
+        let computerRand = Int.random(in: 0..<otherDeck.count)
+        let computerCard = otherDeck[computerRand]
+        otherSelectedCard = computerCard
     }
 }
 

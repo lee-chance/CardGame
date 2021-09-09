@@ -25,27 +25,10 @@ struct MyDeck: View {
                     Image(card.value)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 60.0)
+                        .frame(maxWidth: 60.0.ratioConstant)
                 })
             }
-            
-//            ForEach(0..<deck.count) { i in
-//                Button(action: {
-//                    print(deck[i].value)
-//                    if clickable {
-//                        selectedCard = deck[i]
-//                    }
-//                }, label: {
-//                    Image(deck[i].value)
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                        .frame(maxWidth: 60.0)
-//                })
-//            }
         }
-        .onAppear(perform: {
-            print("deck count: \(deck.count)")
-        })
     }
 }
 

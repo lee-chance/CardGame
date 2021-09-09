@@ -13,8 +13,8 @@ struct OtherDeck: View {
     @Binding var redCount: Int
     @Binding var blackCount: Int
     
-    private let redCard = Card(face: .redBack).value
-    private let blackCard = Card(face: .blackBack).value
+    private let redCard = Card.redBack().value
+    private let blackCard = Card.blackBack().value
     
     
     var body: some View {
@@ -24,13 +24,13 @@ struct OtherDeck: View {
                     Image(redCard)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 60.0)
+                        .frame(maxWidth: 60.0.ratioConstant)
                 }
                 if blackCount > i {
                     Image(blackCard)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 60.0)
+                        .frame(maxWidth: 60.0.ratioConstant)
                 }
             }
         }

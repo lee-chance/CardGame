@@ -23,7 +23,7 @@ struct BWLobbyView: View {
                 Spacer()
                 TextField("Enter your nickname!", text: $name)
                     .padding()
-                    .frame(width: 250.0)
+                    .frame(width: 250.ratioConstant)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Button(action: {

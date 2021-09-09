@@ -55,6 +55,14 @@ extension Card {
     init(rank: Rank, suit: Suit) {
         self.init(face: .front, rank: rank, suit: suit)
     }
+    
+    static func redBack() -> Card {
+        return self.init(face: .redBack)
+    }
+    
+    static func blackBack() -> Card {
+        return self.init(face: .blackBack)
+    }
 }
 
 extension Card {
