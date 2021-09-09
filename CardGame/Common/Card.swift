@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card {
+struct Card: Hashable {
     
     let face: Face, rank: Rank, suit: Suit
     

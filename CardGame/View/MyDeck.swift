@@ -15,19 +15,33 @@ struct MyDeck: View {
     
     var body: some View {
         HStack {
-            ForEach(0..<deck.count) { i in
+            ForEach(deck, id: \.self) { card in
                 Button(action: {
-                    print(deck[i].value)
+                    print(card.value)
                     if clickable {
-                        selectedCard = deck[i]
+                        selectedCard = card
                     }
                 }, label: {
-                    Image(deck[i].value)
+                    Image(card.value)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 60.0)
                 })
             }
+            
+//            ForEach(0..<deck.count) { i in
+//                Button(action: {
+//                    print(deck[i].value)
+//                    if clickable {
+//                        selectedCard = deck[i]
+//                    }
+//                }, label: {
+//                    Image(deck[i].value)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fit)
+//                        .frame(maxWidth: 60.0)
+//                })
+//            }
         }
         .onAppear(perform: {
             print("deck count: \(deck.count)")

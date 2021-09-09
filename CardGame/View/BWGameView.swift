@@ -53,21 +53,25 @@ struct BWGameView: View {
             Background()
             
             VStack {
-                OtherDeck(deck: $otherDeck)
-                Spacer()
-                Image(otherSelectedCard.value)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 80.0)
-                Button(action: {
-                    presented = false
-                }, label: {
-                    Text("Exit")
-                        .foregroundColor(Color.black)
-                        .padding(.horizontal)
-                        .padding(.vertical, 4.0)
-                })
-                .background(Color(.red))
+                // title bar
+                TitleBar(presented: $presented, title: "Black and White")
+                
+                // other deck
+                let bCount = otherDeck.filter { $0.isBlack }.count
+                let rCount = otherDeck.filter { $0.isRed }.count
+                OtherDeck(deck: $otherDeck, redCount: .constant(rCount), blackCount: .constant(bCount))
+                
+                // other card
+                VStack {
+                    Spacer()
+                    Image(otherSelectedCard.value)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80.0)
+                    Spacer()
+                }
+                
+                // score
                 HStack {
                     Spacer()
                     VStack {
@@ -91,21 +95,28 @@ struct BWGameView: View {
                     }
                     Spacer()
                 }
-                Button(action: {
-                    playerCardClickable = false
-                    play()
-                }, label: {
-                    Text("Deal")
-                        .foregroundColor(Color.red)
-                        .padding(.horizontal)
-                        .padding(.vertical, 4.0)
-                })
-                .background(Color(.black))
-                Image(playerSelectedCard.value)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 80.0)
-                Spacer()
+                
+                // my card
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        playerCardClickable = false
+                        play()
+                    }, label: {
+                        Text("Deal")
+                            .foregroundColor(Color.red)
+                            .padding(.horizontal)
+                            .padding(.vertical, 4.0)
+                    })
+                    .background(Color(.black))
+                    Image(playerSelectedCard.value)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80.0)
+                    Spacer()
+                }
+                
+                // my deck
                 HStack {
                     MyDeck(deck: $myDeck, selectedCard: $playerSelectedCard, clickable: $playerCardClickable)
                 }
@@ -147,6 +158,8 @@ struct BWGameView: View {
         // pop card
         otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
         myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
+        
+        playerCardClickable = true
     }
 }
 
