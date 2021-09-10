@@ -76,8 +76,8 @@ cardCompare.on('connection', function(socket) {
 const blackAndWhiteRoom = 'blackAndWhiteRoom'
 const blackAndWhiteUsers = {
   'isFull': false,
-  'user1': 'USER 1',
-  'user2': 'USER 2'
+  'user1': '',
+  'user2': ''
 }
 
 // 소켓 명령어
@@ -88,8 +88,8 @@ blackAndWhite.on('connection', function(socket) {
   socket.on('disconnect', function() {
     socket.disconnect()
     blackAndWhiteUsers['isFull'] = false
-    blackAndWhiteUsers['user1'] = 'USER 1'
-    blackAndWhiteUsers['user2'] = 'USER 2'
+    blackAndWhiteUsers['user1'] = ''
+    blackAndWhiteUsers['user2'] = ''
   })
 
   // Enter room
@@ -97,14 +97,14 @@ blackAndWhite.on('connection', function(socket) {
     const nickname = data['nickname']
     console.log(`${nickname} enter room`)
     socket.join(blackAndWhiteRoom)
-    if (blackAndWhiteUsers['user1'] == 'USER 1') {
+    if (blackAndWhiteUsers['user1'] == '') {
       blackAndWhiteUsers['user1'] = nickname
-    } else if (blackAndWhiteUsers['user2'] == 'USER 2') {
+    } else if (blackAndWhiteUsers['user2'] == '') {
       blackAndWhiteUsers['user2'] = nickname
     } else {
       console.log('가득참')
     }
-    blackAndWhiteUsers['isFull'] = blackAndWhiteUsers['user1'] != 'USER 1' && blackAndWhiteUsers['user2'] != 'USER 2'
+    blackAndWhiteUsers['isFull'] = blackAndWhiteUsers['user1'] != '' && blackAndWhiteUsers['user2'] != ''
     blackAndWhite.to(blackAndWhiteRoom).emit('room info', blackAndWhiteUsers)
   })
 
@@ -114,21 +114,21 @@ blackAndWhite.on('connection', function(socket) {
     console.log(`${user} leave room`)
     socket.leave(blackAndWhiteRoom)
     if (user == 'U1') {
-      blackAndWhiteUsers['user1'] = 'USER 1'
+      blackAndWhiteUsers['user1'] = ''
     } else {
-      blackAndWhiteUsers['user2'] = 'USER 2'
+      blackAndWhiteUsers['user2'] = ''
     }
     blackAndWhiteUsers['isFull'] = false
     blackAndWhite.to(blackAndWhiteRoom).emit('room info', blackAndWhiteUsers)
   })
 
   // Deal
-  socket.on('deal', function() {
+  socket.on('deal', function(data) {
+    console.log(data)
     blackAndWhite.to(blackAndWhiteRoom).emit('game info', {
-      'user1SuitRandom': Math.floor(Math.random() * 4),
-      'user1RankRandom': Math.floor(Math.random() * 13) + 1,
-      'user2SuitRandom': Math.floor(Math.random() * 4),
-      'user2RankRandom': Math.floor(Math.random() * 13) + 1,
+      'user': data.user,
+      'rank': data.rank,
+      'suit': data.suit
     })
   })
 })

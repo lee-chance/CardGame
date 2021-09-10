@@ -9,17 +9,16 @@ import SwiftUI
 
 struct OtherDeck: View {
     
-    @Binding var deck: [Card]
-    @Binding var redCount: Int
-    @Binding var blackCount: Int
+    let deck: [Card]
+    let redCount: Int
+    let blackCount: Int
     
     private let redCard = Card.redBack().value
     private let blackCard = Card.blackBack().value
     
-    
     var body: some View {
         HStack {
-            ForEach(0..<deck.count / 2) { i in
+            ForEach(0..<deck.count / 2, id: \.self) { i in
                 if redCount > i {
                     Image(redCard)
                         .resizable()
@@ -52,6 +51,6 @@ let user2Deck = [
 
 struct OtherDeck_Previews: PreviewProvider {
     static var previews: some View {
-        OtherDeck(deck: .constant(user2Deck), redCount: .constant(5), blackCount: .constant(5))
+        OtherDeck(deck: user2Deck, redCount: 5, blackCount: 5)
     }
 }

@@ -52,6 +52,11 @@ class SocketIOManager: NSObject {
         socket.emit("deal")
     }
     
+    // for black and white
+    func deal(user: CGDefine.User, card: Card) {
+        socket.emit("deal", ["user": user.rawValue, "suit": card.suit.rawInt, "rank": card.rank.rawValue])
+    }
+    
     func listenForRoomInfo(handler: @escaping (_ info: RoomInfo)->Void) {
         socket.on("room info") { [weak self] (data, ack) in
             do {
@@ -67,12 +72,29 @@ class SocketIOManager: NSObject {
         }
     }
     
-    func listenForGameInfo(handler: @escaping (_ info: GameInfo)->Void) {
+    // for card compare
+    func listenForCCGameInfo(handler: @escaping (_ info: CCGameInfo)->Void) {
         socket.on("game info") { [weak self] (data, ack) in
             do {
                 let gameInfoData = data.first!
                 let json = try JSONSerialization.data(withJSONObject: gameInfoData, options: .prettyPrinted)
-                let result = try JSONDecoder().decode(GameInfo.self, from: json)
+                let result = try JSONDecoder().decode(CCGameInfo.self, from: json)
+                self?.gameInfo = result
+                print("data: \(result)")
+                handler(result)
+            } catch {
+                print("failure")
+            }
+        }
+    }
+    
+    // for black and white
+    func listenForBWGameInfo(handler: @escaping (_ info: BWGameInfo)->Void) {
+        socket.on("game info") { [weak self] (data, ack) in
+            do {
+                let gameInfoData = data.first!
+                let json = try JSONSerialization.data(withJSONObject: gameInfoData, options: .prettyPrinted)
+                let result = try JSONDecoder().decode(BWGameInfo.self, from: json)
                 self?.gameInfo = result
                 print("data: \(result)")
                 handler(result)
@@ -90,15 +112,24 @@ class SocketIOManager: NSObject {
 }
 
 struct RoomInfo: Codable {
-//    let isFull: Bool
-//    let user: [String]
+    let isFull: Bool
     let user1: String
     let user2: String
 }
 
-struct GameInfo: Codable {
+protocol GameInfo: Codable {}
+
+// for card compare
+struct CCGameInfo: GameInfo {
     let user1SuitRandom: Int
     let user1RankRandom: Int
     let user2SuitRandom: Int
     let user2RankRandom: Int
+}
+
+// for black and white
+struct BWGameInfo: GameInfo {
+    let user: String
+    let rank: Int
+    let suit: Int
 }

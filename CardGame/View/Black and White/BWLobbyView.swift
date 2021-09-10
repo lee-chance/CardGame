@@ -40,7 +40,7 @@ struct BWLobbyView: View {
                         .padding()
                 })
                 .fullScreenCover(isPresented: $localGameIsPresent, content: {
-                    BWGameView(presented: $localGameIsPresent, playerName: $name)
+                    BWGameView(presented: $localGameIsPresent, playerName: name, isServer: false)
                 })
 
                 Button(action: {
@@ -58,7 +58,7 @@ struct BWLobbyView: View {
                         .padding(.all)
                 })
                 .fullScreenCover(isPresented: $serverGameIsPresent, content: {
-                    BWGameView(presented: $serverGameIsPresent, playerName: $name, isServer: true)
+                    BWGameView(presented: $serverGameIsPresent, playerName: name, isServer: true)
                 })
                 Spacer()
                 Spacer()

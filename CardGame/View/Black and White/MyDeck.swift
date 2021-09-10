@@ -9,17 +9,23 @@ import SwiftUI
 
 struct MyDeck: View {
     
-    @Binding var deck: [Card]
+    let deck: [Card]
+    let clickable: Bool
+    let user: CGDefine.User?
+    
     @Binding var selectedCard: Card
-    @Binding var clickable: Bool
+    @Binding var isSelected: Bool
     
     var body: some View {
         HStack {
             ForEach(deck, id: \.self) { card in
                 Button(action: {
-                    print(card.value)
                     if clickable {
                         selectedCard = card
+                        isSelected = true
+                        if let user = user {
+                            SocketIOManager.shared.deal(user: user, card: card)
+                        }
                     }
                 }, label: {
                     Image(card.value)
@@ -47,6 +53,6 @@ let user1Deck = [
 
 struct MyDeck_Previews: PreviewProvider {
     static var previews: some View {
-        MyDeck(deck: .constant(user1Deck), selectedCard: .constant(user1Deck[0]), clickable: .constant(true))
+        MyDeck(deck: user1Deck, clickable: true, user: .user1, selectedCard: .constant(user1Deck[0]), isSelected: .constant(true))
     }
 }

@@ -29,6 +29,16 @@ struct Card: Hashable {
             default: return -1
             }
         }
+        
+        init(rawInt: Int) {
+            switch rawInt {
+            case 3: self.init(rawValue: "♠︎")!
+            case 2: self.init(rawValue: "♡")!
+            case 1: self.init(rawValue: "♢")!
+            case 0: self.init(rawValue: "♣︎")!
+            default: self.init(rawValue: "b")!
+            }
+        }
     }
     
     enum Rank: Int {

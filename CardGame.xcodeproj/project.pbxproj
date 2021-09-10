@@ -25,6 +25,8 @@
 		2EAF33E026AC090B007C55A4 /* TitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33DF26AC090B007C55A4 /* TitleBar.swift */; };
 		2EAF33E726AC0B82007C55A4 /* IHLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */; };
 		2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */; };
+		2EC4C3C126EB318D0098B95A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C026EB318D0098B95A /* MainCard.swift */; };
+		2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C726EB78F10098B95A /* CGDefine.swift */; };
 		87016FD36E8382BCF7F50B57 /* Pods_CardGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C958985579E92532FEFFC /* Pods_CardGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		2EAF33DF26AC090B007C55A4 /* TitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBar.swift; sourceTree = "<group>"; };
 		2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IHLobbyView.swift; sourceTree = "<group>"; };
 		2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BWLobbyView.swift; sourceTree = "<group>"; };
+		2EC4C3C026EB318D0098B95A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
+		2EC4C3C726EB78F10098B95A /* CGDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDefine.swift; sourceTree = "<group>"; };
 		540BD2C73D2907B22A69EBC4 /* Pods-CardGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGame.debug.xcconfig"; path = "Target Support Files/Pods-CardGame/Pods-CardGame.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,10 +113,10 @@
 		2EAF33CE26ABC539007C55A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2EAF33DC26AC0248007C55A4 /* Card Compare */,
-				2EAF33E126AC09C4007C55A4 /* Indian Holdem */,
-				2EAF33E426AC0A13007C55A4 /* Black and White */,
 				2EAF33DD26AC02EB007C55A4 /* MainView.swift */,
+				2EC4C3C626EB31F00098B95A /* Card Compare */,
+				2EC4C3C426EB31DD0098B95A /* Indian Holdem */,
+				2EC4C3C326EB31C10098B95A /* Black and White */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -123,6 +127,7 @@
 				2EAF33D226ABC5A9007C55A4 /* Component */,
 				2EAF33CC26ABA89C007C55A4 /* Card.swift */,
 				2EAF33DA26ABD883007C55A4 /* SocketIOManager.swift */,
+				2EC4C3C726EB78F10098B95A /* CGDefine.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -146,32 +151,33 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		2EAF33DC26AC0248007C55A4 /* Card Compare */ = {
-			isa = PBXGroup;
-			children = (
-				2E82B80726AB9AA700791E8A /* CCGameView.swift */,
-				2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */,
-			);
-			name = "Card Compare";
-			sourceTree = "<group>";
-		};
-		2EAF33E126AC09C4007C55A4 /* Indian Holdem */ = {
-			isa = PBXGroup;
-			children = (
-				2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */,
-			);
-			name = "Indian Holdem";
-			sourceTree = "<group>";
-		};
-		2EAF33E426AC0A13007C55A4 /* Black and White */ = {
+		2EC4C3C326EB31C10098B95A /* Black and White */ = {
 			isa = PBXGroup;
 			children = (
 				2E03BDC026AC3FE00012F532 /* BWGameView.swift */,
 				2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */,
 				2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */,
 				2E03BDC226AC683C0012F532 /* MyDeck.swift */,
+				2EC4C3C026EB318D0098B95A /* MainCard.swift */,
 			);
-			name = "Black and White";
+			path = "Black and White";
+			sourceTree = "<group>";
+		};
+		2EC4C3C426EB31DD0098B95A /* Indian Holdem */ = {
+			isa = PBXGroup;
+			children = (
+				2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */,
+			);
+			path = "Indian Holdem";
+			sourceTree = "<group>";
+		};
+		2EC4C3C626EB31F00098B95A /* Card Compare */ = {
+			isa = PBXGroup;
+			children = (
+				2E82B80726AB9AA700791E8A /* CCGameView.swift */,
+				2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */,
+			);
+			path = "Card Compare";
 			sourceTree = "<group>";
 		};
 		C5C0995909CA36554D7D91FB /* Pods */ = {
@@ -308,8 +314,10 @@
 				2E82B80826AB9AA700791E8A /* CCGameView.swift in Sources */,
 				2EAF33DE26AC02EB007C55A4 /* MainView.swift in Sources */,
 				2EAF33E026AC090B007C55A4 /* TitleBar.swift in Sources */,
+				2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */,
 				2EAF33D126ABC57D007C55A4 /* CCLobbyView.swift in Sources */,
 				2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */,
+				2EC4C3C126EB318D0098B95A /* MainCard.swift in Sources */,
 				2EAF33CD26ABA89C007C55A4 /* Card.swift in Sources */,
 				2E82B80626AB9AA700791E8A /* CardGameApp.swift in Sources */,
 				2EAF33DB26ABD883007C55A4 /* SocketIOManager.swift in Sources */,

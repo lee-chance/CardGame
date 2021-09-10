@@ -143,7 +143,7 @@ struct CCGameView: View {
                     pName = roomInfo.user1
                     cName = roomInfo.user2
                 }
-                SocketIOManager.shared.listenForGameInfo { gameInfo in
+                SocketIOManager.shared.listenForCCGameInfo { gameInfo in
                     play(user1SuitRandom: gameInfo.user1SuitRandom,
                          user1RankRandom: gameInfo.user1RankRandom,
                          user2SuitRandom: gameInfo.user2SuitRandom,
