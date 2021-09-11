@@ -24,7 +24,7 @@ struct MyDeck: View {
                         selectedCard = card
                         isSelected = true
                         if let user = user {
-                            SocketIOManager.shared.deal(user: user, card: card)
+                            SocketIOManager.shared.selectCard(user: user, card: card)
                         }
                     }
                 }, label: {

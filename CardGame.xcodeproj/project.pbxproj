@@ -27,6 +27,7 @@
 		2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */; };
 		2EC4C3C126EB318D0098B95A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C026EB318D0098B95A /* MainCard.swift */; };
 		2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C726EB78F10098B95A /* CGDefine.swift */; };
+		2EC4C3CB26EC77390098B95A /* CGModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3CA26EC77390098B95A /* CGModel.swift */; };
 		87016FD36E8382BCF7F50B57 /* Pods_CardGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 245C958985579E92532FEFFC /* Pods_CardGame.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BWLobbyView.swift; sourceTree = "<group>"; };
 		2EC4C3C026EB318D0098B95A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		2EC4C3C726EB78F10098B95A /* CGDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDefine.swift; sourceTree = "<group>"; };
+		2EC4C3CA26EC77390098B95A /* CGModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGModel.swift; sourceTree = "<group>"; };
 		540BD2C73D2907B22A69EBC4 /* Pods-CardGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGame.debug.xcconfig"; path = "Target Support Files/Pods-CardGame/Pods-CardGame.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +96,7 @@
 			children = (
 				2EAF33D926ABD82D007C55A4 /* App */,
 				2EAF33CF26ABC54A007C55A4 /* Common */,
+				2EC4C3C926EC77180098B95A /* Model */,
 				2EAF33CE26ABC539007C55A4 /* View */,
 				2E82B80926AB9AA800791E8A /* Assets.xcassets */,
 				2E82B80E26AB9AA800791E8A /* Info.plist */,
@@ -178,6 +181,14 @@
 				2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */,
 			);
 			path = "Card Compare";
+			sourceTree = "<group>";
+		};
+		2EC4C3C926EC77180098B95A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2EC4C3CA26EC77390098B95A /* CGModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C5C0995909CA36554D7D91FB /* Pods */ = {
@@ -314,6 +325,7 @@
 				2E82B80826AB9AA700791E8A /* CCGameView.swift in Sources */,
 				2EAF33DE26AC02EB007C55A4 /* MainView.swift in Sources */,
 				2EAF33E026AC090B007C55A4 /* TitleBar.swift in Sources */,
+				2EC4C3CB26EC77390098B95A /* CGModel.swift in Sources */,
 				2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */,
 				2EAF33D126ABC57D007C55A4 /* CCLobbyView.swift in Sources */,
 				2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */,

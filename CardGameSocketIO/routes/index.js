@@ -122,13 +122,32 @@ blackAndWhite.on('connection', function(socket) {
     blackAndWhite.to(blackAndWhiteRoom).emit('room info', blackAndWhiteUsers)
   })
 
-  // Deal
-  socket.on('deal', function(data) {
+  // Select card
+  socket.on('select card', function(data) {
     console.log(data)
     blackAndWhite.to(blackAndWhiteRoom).emit('game info', {
+      'type': 'select card',
       'user': data.user,
       'rank': data.rank,
       'suit': data.suit
+    })
+  })
+
+  // Deal
+  socket.on('deal', function(data) {
+    console.log(data)
+    const playerRank = Number(data.player)
+    const otherRank = Number(data.other)
+    var result = "draw"
+    if (playerRank > otherRank) {
+      result = "user1"
+    } else if (playerRank < otherRank) {
+      result = "user2"
+    }
+    blackAndWhite.to(blackAndWhiteRoom).emit('game info', {
+      'type': 'deal',
+      'user': data.user,
+      'result': result
     })
   })
 })

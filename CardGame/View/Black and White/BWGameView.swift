@@ -14,17 +14,12 @@ struct BWGameView: View {
         case player2
     }
     
-    private enum Result {
-        case player1Win
-        case player2Win
-        case draw
-    }
-    
     @Binding var presented: Bool
     let playerName: String
     let isServer: Bool
     
     @State private var user: CGDefine.User?
+    @State private var turn: Turn = .player1
     @State private var pName: String = "USER 1"
     @State private var cName: String = "USER 2"
     @State private var playerScore = 0
@@ -87,7 +82,7 @@ struct BWGameView: View {
                             Button(action: {
                                 presented = false
                                 if isServer {
-                                    if playerName == pName {
+                                    if user == .user1 {
                                         SocketIOManager.shared.leave(user: "U1")
                                     } else {
                                         SocketIOManager.shared.leave(user: "U2")
@@ -221,10 +216,38 @@ struct BWGameView: View {
                     }
                 }
                 SocketIOManager.shared.listenForBWGameInfo { gameInfo in
-                    let card = Card(rank: Card.Rank(rawValue: gameInfo.rank)!, suit: Card.Suit(rawInt: gameInfo.suit))
-                    if gameInfo.user != user?.rawValue {
-                        otherSelectedCard = card
-                        otherCardIsSelected = true
+                    switch gameInfo.type {
+                    case "select card":
+                        let card = Card(rank: Card.Rank(rawValue: gameInfo.rank!)!, suit: Card.Suit(rawInt: gameInfo.suit!))
+                        if gameInfo.user != user?.rawValue {
+                            otherSelectedCard = card
+                            otherCardIsSelected = true
+                        }
+                    case "deal":
+                        switch gameInfo.result {
+                        case "user1":
+                            if gameInfo.user == user?.rawValue {
+                                playerScore += 1
+                            } else {
+                                computerScore += 1
+                            }
+                        case "user2":
+                            if gameInfo.user == user?.rawValue {
+                                computerScore += 1
+                            } else {
+                                playerScore += 1
+                            }
+                        default: break
+                        }
+                        
+                        // pop card
+                        otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
+                        myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            reset()
+                        }
+                    default: break
                     }
                 }
             } else {
@@ -247,23 +270,27 @@ struct BWGameView: View {
         playerCardClickable = false
         
         // check
-        let computerRank = otherSelectedCard.rank.rawValue
+        let otherRank = otherSelectedCard.rank.rawValue
         let playerRank = playerSelectedCard.rank.rawValue
-        if playerRank > computerRank {
-            playerScore += 1
-        } else if playerRank < computerRank {
-            computerScore += 1
+        if isServer {
+            SocketIOManager.shared.deal(user: user!, playerRank, otherRank)
         } else {
-            playerScore += 0
-            computerScore += 0
-        }
-        
-        // pop card
-        otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
-        myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            reset()
+            if playerRank > otherRank {
+                playerScore += 1
+            } else if playerRank < otherRank {
+                computerScore += 1
+            } else {
+                playerScore += 0
+                computerScore += 0
+            }
+            
+            // pop card
+            otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
+            myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                reset()
+            }
         }
     }
     
@@ -273,7 +300,9 @@ struct BWGameView: View {
         
         playerCardClickable = true
         
-        computerSetup()
+        if !isServer {
+            computerSetup()
+        }
     }
     
     private func computerSetup() {

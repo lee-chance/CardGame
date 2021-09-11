@@ -53,8 +53,12 @@ class SocketIOManager: NSObject {
     }
     
     // for black and white
-    func deal(user: CGDefine.User, card: Card) {
-        socket.emit("deal", ["user": user.rawValue, "suit": card.suit.rawInt, "rank": card.rank.rawValue])
+    func selectCard(user: CGDefine.User, card: Card) {
+        socket.emit("select card", ["user": user.rawValue, "suit": card.suit.rawInt, "rank": card.rank.rawValue])
+    }
+    
+    func deal(user: CGDefine.User, _ pRank: Int, _ oRank: Int) {
+        socket.emit("deal", ["user": user.rawValue, "player": pRank, "other": oRank])
     }
     
     func listenForRoomInfo(handler: @escaping (_ info: RoomInfo)->Void) {
@@ -109,27 +113,4 @@ class SocketIOManager: NSObject {
         socket.off("game info")
     }
     
-}
-
-struct RoomInfo: Codable {
-    let isFull: Bool
-    let user1: String
-    let user2: String
-}
-
-protocol GameInfo: Codable {}
-
-// for card compare
-struct CCGameInfo: GameInfo {
-    let user1SuitRandom: Int
-    let user1RankRandom: Int
-    let user2SuitRandom: Int
-    let user2RankRandom: Int
-}
-
-// for black and white
-struct BWGameInfo: GameInfo {
-    let user: String
-    let rank: Int
-    let suit: Int
 }
