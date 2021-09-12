@@ -13,24 +13,25 @@ struct OtherDeck: View {
     let redCount: Int
     let blackCount: Int
     
-    private let redCard = Card.redBack().value
-    private let blackCard = Card.blackBack().value
-    
     var body: some View {
         HStack {
-            ForEach(0..<deck.count / 2, id: \.self) { i in
-                if redCount > i {
-                    Image(redCard)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 60.0.ratioConstant)
-                }
-                if blackCount > i {
-                    Image(blackCard)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: 60.0.ratioConstant)
-                }
+            let redCard = Image(Card.redBack().value)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: 60.0.ratioConstant)
+            let blackCard = Image(Card.blackBack().value)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxWidth: 60.0.ratioConstant)
+            
+            ForEach(0..<deck.count, id: \.self) { i in
+                i % 2 == 0
+                    ? redCount > i / 2
+                        ? redCard
+                        : blackCard
+                    : blackCount > i / 2
+                        ? blackCard
+                        : redCard
             }
         }
     }
