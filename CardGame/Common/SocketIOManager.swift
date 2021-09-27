@@ -16,7 +16,7 @@ class SocketIOManager: NSObject {
     static let shared = SocketIOManager()
     
     // 9000번 포트사용
-    var manager = SocketManager(socketURL: URL(string: "http://localhost:9000")!, config: [.log(true), .compress])
+    var manager = SocketManager(socketURL: URL(string: "http://172.30.1.19:9000")!, config: [.log(true), .compress])
     var socket: SocketIOClient!
     
     var roomInfo: RoomInfo?
@@ -57,8 +57,12 @@ class SocketIOManager: NSObject {
         socket.emit("select card", ["user": user.rawValue, "suit": card.suit.rawInt, "rank": card.rank.rawValue])
     }
     
-    func deal(user: CGDefine.User, _ pRank: Int, _ oRank: Int) {
-        socket.emit("deal", ["user": user.rawValue, "player": pRank, "other": oRank])
+    func deal(user: CGDefine.User, turn: CGDefine.User, _ pRank: Int, _ oRank: Int) {
+        socket.emit("deal", ["user": user.rawValue, "turn": turn.rawValue, "player": pRank, "other": oRank])
+    }
+    
+    func nextTurn(turn: CGDefine.User) {
+        socket.emit("next turn", ["turn": turn.rawValue])
     }
     
     func listenForRoomInfo(handler: @escaping (_ info: RoomInfo)->Void) {

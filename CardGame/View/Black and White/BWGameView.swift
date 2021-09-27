@@ -9,17 +9,12 @@ import SwiftUI
 
 struct BWGameView: View {
     
-    private enum Turn {
-        case player1
-        case player2
-    }
-    
     @Binding var presented: Bool
     let playerName: String
     let isServer: Bool
     
     @State private var user: CGDefine.User?
-    @State private var turn: Turn = .player1
+    @State private var turn: CGDefine.User = .user1
     @State private var pName: String = "USER 1"
     @State private var cName: String = "USER 2"
     @State private var playerScore = 0
@@ -36,7 +31,6 @@ struct BWGameView: View {
     
     @State private var showWinWhenIWin: Bool = false
     @State private var showWinWhenILost: Bool = false
-    @State private var showCenterText: Bool = true
     @State private var centerText: String = "Wating..."
     @State private var isGameOver: Bool = false
     
@@ -132,12 +126,12 @@ struct BWGameView: View {
                     VStack(spacing: 0) {
                         Image(systemName: "chevron.up")
                             .font(.system(size: 28.ratioConstant, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.white.opacity(turn != user ? 1 : 0))
                         Spacer()
                         Text(centerText)
                             .font(.system(size: 32.ratioConstant))
                             .fontWeight(.black)
-                            .foregroundColor(Color.yellow.opacity(showCenterText ? 1 : 0))
+                            .foregroundColor(Color.yellow.opacity(1))
                             // adjustsFontSizeToFitWidth
                             .minimumScaleFactor(0.1)
                             .lineLimit(1)
@@ -154,7 +148,7 @@ struct BWGameView: View {
                         Spacer()
                         Image(systemName: "chevron.down")
                             .font(.system(size: 28.ratioConstant, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.white.opacity(turn == user ? 1 : 0))
                     }
                     .frame(maxWidth: .infinity)
                     VStack(spacing: 0) {
@@ -210,6 +204,7 @@ struct BWGameView: View {
             }
         }
         .alert(isPresented: $isGameOver) {
+            let result =
             Alert(title: Text("(승리)"), message: Text("게임을 다시 하시겠습니까?"), primaryButton: .cancel(Text("아니요"), action: {
                 exit()
             }), secondaryButton: .default(Text("예"), action: {
@@ -218,7 +213,9 @@ struct BWGameView: View {
         }
         .onAppear(perform: {
             if isServer {
+                // FIXME: 정비 필요
                 SocketIOManager.shared.listenForRoomInfo { roomInfo in
+                    turn = .user1
                     if user == nil {
                         if roomInfo.user2 == "" {
                             user = .user1
@@ -233,13 +230,17 @@ struct BWGameView: View {
                             cName = roomInfo.user1
                             myDeck = user2Deck
                             otherDeck = user1Deck
+                            checkTurn()
                             countDown()
                         }
                     } else {
+                        user = .user1
                         cName = roomInfo.user2
+                        checkTurn()
                         countDown()
                     }
                 }
+                
                 SocketIOManager.shared.listenForBWGameInfo { gameInfo in
                     switch gameInfo.type {
                     case "select card":
@@ -248,44 +249,35 @@ struct BWGameView: View {
                             otherSelectedCard = card
                             otherCardIsSelected = true
                         }
+                    case "next turn":
+                        turn = CGDefine.User(rawValue: gameInfo.result!)!
+                        checkTurn()
+                        countDown()
                     case "deal":
-                        switch gameInfo.result {
-                        case "user1":
-                            if gameInfo.user == user?.rawValue {
-                                playerScore += 1
-                                showWinWhenIWin = true
-                            } else {
-                                computerScore += 1
-                                showWinWhenILost = true
-                            }
-                        case "user2":
-                            if gameInfo.user == user?.rawValue {
-                                computerScore += 1
-                                showWinWhenILost = true
-                            } else {
-                                playerScore += 1
-                                showWinWhenIWin = true
-                            }
+                        switch gameInfo.winner {
+                        case "user1", "user2":
+                            gameInfo.user == user?.rawValue
+                                ? iWin()
+                                : iLost()
+//                            if gameInfo.user == user?.rawValue {
+//                                iWin()
+//                            } else {
+//                                iLost()
+//                            }
+//                        case "user2":
+//                            if gameInfo.user == user?.rawValue {
+//                                iWin()
+//                            } else {
+//                                iLost()
+//                            }
                         case "draw":
-                            // TODO: draw
-                            break
+                            centerText = "Draw"
                         default: break
                         }
                         
-                        isTimerActive = false
+                        turn = CGDefine.User(rawValue: gameInfo.result!)!
+                        turnOver()
                         
-                        // pop card
-                        otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
-                        myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
-                        
-                        guard otherDeck.count > 0 else {
-                            gameOver()
-                            return
-                        }
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            reset()
-                        }
                     default: break
                     }
                 }
@@ -306,49 +298,64 @@ struct BWGameView: View {
             return
         }
         
-        playerCardClickable = false
-        
-        // check
-        let otherRank = otherSelectedCard.rank.rawValue
-        let playerRank = playerSelectedCard.rank.rawValue
-        if isServer {
-            SocketIOManager.shared.deal(user: user!, playerRank, otherRank)
-        } else {
-            if playerRank > otherRank {
-                playerScore += 1
-                showWinWhenIWin = true
-            } else if playerRank < otherRank {
-                computerScore += 1
-                showWinWhenILost = true
+        if otherDeck.contains(otherSelectedCard) {
+            // check
+            let otherRank = otherSelectedCard.rank.rawValue
+            let playerRank = playerSelectedCard.rank.rawValue
+            if isServer {
+                SocketIOManager.shared.deal(user: user!, turn: turn, playerRank, otherRank)
             } else {
-                // TODO: draw
+                if playerRank > otherRank {
+                    iWin()
+                } else if playerRank < otherRank {
+                    iLost()
+                } else {
+                    centerText = "Draw"
+                }
+                turnOver()
             }
-            
-            isTimerActive = false
-            
-            // pop card
-            otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
-            myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
-            
-            guard otherDeck.count > 0 else {
-                gameOver()
-                return
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                reset()
-            }
+        } else {
+            // 상대방이 아직 선택하지 않았으면 턴 넘기기
+            SocketIOManager.shared.nextTurn(turn: turn)
+        }
+    }
+    
+    private func iWin() {
+        centerText = ""
+        playerScore += 1
+        showWinWhenIWin = true
+    }
+    
+    private func iLost() {
+        centerText = ""
+        computerScore += 1
+        showWinWhenILost = true
+    }
+    
+    private func turnOver() {
+        checkTurn()
+        isTimerActive = false
+        
+        // pop card
+        otherDeck = otherDeck.filter { $0.rank != otherSelectedCard.rank }
+        myDeck = myDeck.filter { $0.rank != playerSelectedCard.rank }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            reset()
         }
     }
     
     private func reset() {
+        guard otherDeck.count > 0 else {
+            gameOver()
+            return
+        }
+        
         myCardIsSelected = false
         otherCardIsSelected = false
-        
         showWinWhenIWin = false
         showWinWhenILost = false
         
-        playerCardClickable = true
         countDown()
         
         if !isServer {
@@ -363,12 +370,17 @@ struct BWGameView: View {
         otherCardIsSelected = true
     }
     
+    private func checkTurn() {
+        playerCardClickable = user == turn
+    }
+    
     private func countDown() {
         isTimerActive = true
         timeRemaining = 10
     }
     
     private func gameOver() {
+        isTimerActive = false
         isGameOver = true
     }
     
@@ -382,7 +394,6 @@ struct BWGameView: View {
             }
         }
         SocketIOManager.shared.offListeners()
-        
     }
 }
 

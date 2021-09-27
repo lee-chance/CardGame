@@ -29,5 +29,6 @@ struct BWGameInfo: GameInfo {
     let user: String?
     let rank: Int?
     let suit: Int?
+    let winner: String?
     let result: String?
 }

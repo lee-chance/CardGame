@@ -79,6 +79,8 @@ const blackAndWhiteUsers = {
   'user1': '',
   'user2': ''
 }
+  
+var nextTurn = "user1"
 
 // 소켓 명령어
 blackAndWhite.on('connection', function(socket) {
@@ -135,19 +137,42 @@ blackAndWhite.on('connection', function(socket) {
 
   // Deal
   socket.on('deal', function(data) {
+    console.log("nextTurn 1: ", nextTurn)
     console.log(data)
+    const user = data.user
+    const currentTurn = data.turn
     const playerRank = Number(data.player)
     const otherRank = Number(data.other)
-    var result = "draw"
+    var winner = "draw"
     if (playerRank > otherRank) {
-      result = "user1"
+      winner = "user1"
+      nextTurn = user
     } else if (playerRank < otherRank) {
-      result = "user2"
+      winner = "user2"
+      nextTurn = user == "user1" ? "user2" : "user1"
     }
+    console.log("nextTurn 2: ", nextTurn)
     blackAndWhite.to(blackAndWhiteRoom).emit('game info', {
       'type': 'deal',
       'user': data.user,
-      'result': result
+      'winner': winner,
+      'result': nextTurn
+    })
+  })
+
+  // Next turn
+  socket.on('next turn', function(data) {
+    console.log(data)
+    const currentTurn = data.turn
+    var nextTurn = ""
+    if (currentTurn == "user1") {
+      nextTurn = "user2"
+    } else {
+      nextTurn = "user1"
+    }
+    blackAndWhite.to(blackAndWhiteRoom).emit('game info', {
+      'type': 'next turn',
+      'result': nextTurn
     })
   })
 })
