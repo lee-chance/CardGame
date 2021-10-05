@@ -12,4 +12,12 @@ struct CGDefine {
         case user1
         case user2
     }
+    
+    enum State: String {
+        case user1
+        case user2
+        case playing
+        case wating
+        case over
+    }
 }

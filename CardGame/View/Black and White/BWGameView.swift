@@ -29,6 +29,7 @@ struct BWGameView: View {
     @State private var myCardIsSelected: Bool = false
     @State private var otherCardIsSelected: Bool = false
     
+    @State private var gameState: CGDefine.State = .wating
     @State private var showWinWhenIWin: Bool = false
     @State private var showWinWhenILost: Bool = false
     @State private var centerText: String = "Wating..."
@@ -173,7 +174,7 @@ struct BWGameView: View {
                             Text("Win")
                                 .font(.system(size: 32.ratioConstant))
                                 .fontWeight(.black)
-                                .foregroundColor(Color.yellow.opacity(showWinWhenIWin ? 1 : 0))
+                                .foregroundColor(Color.yellow.opacity(user?.rawValue == gameState.rawValue ? 1 : 0))
                         }
                         .frame(maxWidth: .infinity)
                         VStack {
@@ -204,7 +205,6 @@ struct BWGameView: View {
             }
         }
         .alert(isPresented: $isGameOver) {
-            let result =
             Alert(title: Text("(승리)"), message: Text("게임을 다시 하시겠습니까?"), primaryButton: .cancel(Text("아니요"), action: {
                 exit()
             }), secondaryButton: .default(Text("예"), action: {
