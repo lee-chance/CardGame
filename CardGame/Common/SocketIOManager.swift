@@ -8,6 +8,9 @@
 import UIKit
 import SocketIO
 
+let BASE_URL = "http://localhost:9000"
+//let BASE_URL = "http://172.30.1.19:9000"
+
 // step 0 - info.plist의 App Transport Security Settings/Allow Arbitrary Loads를 YES로 설정
 
 // step 1 - SocketIOManager 클래스 작성
@@ -16,7 +19,7 @@ class SocketIOManager: NSObject {
     static let shared = SocketIOManager()
     
     // 9000번 포트사용
-    var manager = SocketManager(socketURL: URL(string: "http://172.30.1.19:9000")!, config: [.log(true), .compress])
+    var manager = SocketManager(socketURL: URL(string: BASE_URL)!, config: [.log(true), .compress])
     var socket: SocketIOClient!
     
     var roomInfo: RoomInfo?
@@ -37,6 +40,7 @@ class SocketIOManager: NSObject {
     }
     
     func closeConnection() {
+        guard let socket = socket else { return }
         socket.disconnect()
     }
     

@@ -29,7 +29,7 @@ struct BWGameView: View {
     @State private var myCardIsSelected: Bool = false
     @State private var otherCardIsSelected: Bool = false
     
-    @State private var gameState: CGDefine.State = .wating
+    @State private var gameState: Game.State = .wating
     @State private var showWinWhenIWin: Bool = false
     @State private var showWinWhenILost: Bool = false
     @State private var centerText: String = "Wating..."

@@ -79,9 +79,6 @@ struct MainView: View {
             }
             .background(Color(UIColor(white: 0.3, alpha: 0.5)))
         }
-        .onAppear {
-            CGManager.shared.gameType = .none
-        }
     }
 }
 

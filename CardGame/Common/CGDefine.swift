@@ -8,7 +8,14 @@
 import Foundation
 
 struct CGDefine {
-    enum GameType: String {
+    enum User: String {
+        case user1
+        case user2
+    }
+}
+
+struct Game {
+    enum `Type`: String {
         case none
         case cardCompare
         case indianHoldem
@@ -24,11 +31,6 @@ struct CGDefine {
                 }
             }
         }
-    }
-    
-    enum User: String {
-        case user1
-        case user2
     }
     
     enum State: String {

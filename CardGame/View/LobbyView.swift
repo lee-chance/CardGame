@@ -86,6 +86,11 @@ struct LobbyView: View {
         .onAppear(perform: {
             SocketIOManager.shared.establishConnection(namespace: "/\(CGManager.shared.gameType.rawValue)")
         })
+        .onDisappear(perform: {
+            // 게임에 들어가도 실행이 안된다.
+            SocketIOManager.shared.closeConnection()
+            CGManager.shared.gameType = .none
+        })
     }
     
 }

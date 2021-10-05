@@ -10,5 +10,5 @@ import Foundation
 class CGManager {
     static let shared = CGManager()
     
-    var gameType: CGDefine.GameType = .none
+    var gameType: Game.`Type` = .none
 }
