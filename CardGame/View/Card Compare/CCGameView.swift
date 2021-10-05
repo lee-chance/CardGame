@@ -10,7 +10,7 @@ import SwiftUI
 struct CCGameView: View {
     
     @Binding var presented: Bool
-    @Binding var playerName: String
+    var playerName: String
     var isServer: Bool = false
     
     @State private var playerCard = Card.redBack().value
@@ -213,7 +213,7 @@ struct CCGameView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            CCGameView(presented: .constant(true), playerName: .constant("Player"))
+            CCGameView(presented: .constant(true), playerName: "Player")
         }
     }
 }

@@ -8,6 +8,24 @@
 import Foundation
 
 struct CGDefine {
+    enum GameType: String {
+        case none
+        case cardCompare
+        case indianHoldem
+        case blackAndWhite
+        
+        var title: String {
+            get {
+                switch self {
+                case .cardCompare: return "Card Compare"
+                case .indianHoldem: return "Indian Holdem"
+                case .blackAndWhite: return "Black And White"
+                default: return "none"
+                }
+            }
+        }
+    }
+    
     enum User: String {
         case user1
         case user2

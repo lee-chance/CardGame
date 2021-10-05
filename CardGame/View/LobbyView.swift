@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BWLobbyView: View {
+struct LobbyView: View {
     
     @Binding var presented: Bool
     @State private var localGameIsPresent = false
@@ -19,7 +19,7 @@ struct BWLobbyView: View {
             Background()
 
             VStack {
-                TitleBar(presented: $presented, title: "Black and White")
+                TitleBar(presented: $presented, title: CGManager.shared.gameType.title)
                 Spacer()
                 TextField("Enter your nickname!", text: $name)
                     .padding()
@@ -40,7 +40,16 @@ struct BWLobbyView: View {
                         .padding()
                 })
                 .fullScreenCover(isPresented: $localGameIsPresent, content: {
-                    BWGameView(presented: $localGameIsPresent, playerName: name, isServer: false)
+                    switch CGManager.shared.gameType {
+                    case .cardCompare:
+                        CCGameView(presented: $localGameIsPresent, playerName: name, isServer: false)
+//                    case .indianHoldem:
+                    case .blackAndWhite:
+                        BWGameView(presented: $localGameIsPresent, playerName: name, isServer: false)
+                    default:
+                        // error view 필요
+                        Text("Error")
+                    }
                 })
 
                 Button(action: {
@@ -58,7 +67,16 @@ struct BWLobbyView: View {
                         .padding(.all)
                 })
                 .fullScreenCover(isPresented: $serverGameIsPresent, content: {
-                    BWGameView(presented: $serverGameIsPresent, playerName: name, isServer: true)
+                    switch CGManager.shared.gameType {
+                    case .cardCompare:
+                        CCGameView(presented: $serverGameIsPresent, playerName: name, isServer: true)
+//                    case .indianHoldem:
+                    case .blackAndWhite:
+                        BWGameView(presented: $serverGameIsPresent, playerName: name, isServer: true)
+                    default:
+                        // error view 필요
+                        Text("Error")
+                    }
                 })
                 Spacer()
                 Spacer()
@@ -66,14 +84,14 @@ struct BWLobbyView: View {
 
         }
         .onAppear(perform: {
-            SocketIOManager.shared.establishConnection(namespace: "/blackAndWhite")
+            SocketIOManager.shared.establishConnection(namespace: "/\(CGManager.shared.gameType.rawValue)")
         })
     }
     
 }
 
-struct BWLobbyView_Previews: PreviewProvider {
+struct LobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        BWLobbyView(presented: .constant(true))
+        LobbyView(presented: .constant(true))
     }
 }

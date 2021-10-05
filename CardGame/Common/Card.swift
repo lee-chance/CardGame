@@ -11,10 +11,10 @@ struct Card: Hashable {
     
     let face: Face, rank: Rank, suit: Suit
     
-    enum Face: Character {
-        case front = "f"
-        case redBack = "r"
-        case blackBack = "b"
+    enum Face {
+        case front
+        case redBack
+        case blackBack
     }
     
     enum Suit: Character {
@@ -78,14 +78,10 @@ extension Card {
 extension Card {
     var value: String {
         switch face {
-        case .front:
-            return "\(rank.toString)\(suit.rawValue)"
-        case .redBack:
-            return "redBack"
-        case .blackBack:
-            return "blackBack"
-        default:
-            return "Back"
+        case .front: return "\(rank.toString)\(suit.rawValue)"
+        case .redBack: return "redBack"
+//        case .blackBack:
+        default: return "blackBack"
         }
     }
     

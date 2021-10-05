@@ -10,21 +10,20 @@
 		2E03BDC126AC3FE10012F532 /* BWGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC026AC3FE00012F532 /* BWGameView.swift */; };
 		2E03BDC326AC683C0012F532 /* MyDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC226AC683C0012F532 /* MyDeck.swift */; };
 		2E03BDC526AC6B8F0012F532 /* OtherDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */; };
+		2E39235D270C488600FF8158 /* CGManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E39235C270C488600FF8158 /* CGManager.swift */; };
 		2E3D706826EA4D5F00FC9D70 /* DynamicSizeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3D706726EA4D5F00FC9D70 /* DynamicSizeExt.swift */; };
 		2E82B80626AB9AA700791E8A /* CardGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E82B80526AB9AA700791E8A /* CardGameApp.swift */; };
 		2E82B80826AB9AA700791E8A /* CCGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E82B80726AB9AA700791E8A /* CCGameView.swift */; };
 		2E82B80A26AB9AA800791E8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E82B80926AB9AA800791E8A /* Assets.xcassets */; };
 		2E82B80D26AB9AA800791E8A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E82B80C26AB9AA800791E8A /* Preview Assets.xcassets */; };
 		2EAF33CD26ABA89C007C55A4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33CC26ABA89C007C55A4 /* Card.swift */; };
-		2EAF33D126ABC57D007C55A4 /* CCLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */; };
 		2EAF33D426ABC5C0007C55A4 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33D326ABC5C0007C55A4 /* Background.swift */; };
 		2EAF33D626ABD6E2007C55A4 /* MyAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33D526ABD6E2007C55A4 /* MyAppDelegate.swift */; };
 		2EAF33D826ABD766007C55A4 /* MySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33D726ABD766007C55A4 /* MySceneDelegate.swift */; };
 		2EAF33DB26ABD883007C55A4 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33DA26ABD883007C55A4 /* SocketIOManager.swift */; };
 		2EAF33DE26AC02EB007C55A4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33DD26AC02EB007C55A4 /* MainView.swift */; };
 		2EAF33E026AC090B007C55A4 /* TitleBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33DF26AC090B007C55A4 /* TitleBar.swift */; };
-		2EAF33E726AC0B82007C55A4 /* IHLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */; };
-		2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */; };
+		2EAF33E826AC0B85007C55A4 /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF33E626AC0A2C007C55A4 /* LobbyView.swift */; };
 		2EC4C3C126EB318D0098B95A /* MainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C026EB318D0098B95A /* MainCard.swift */; };
 		2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3C726EB78F10098B95A /* CGDefine.swift */; };
 		2EC4C3CB26EC77390098B95A /* CGModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC4C3CA26EC77390098B95A /* CGModel.swift */; };
@@ -37,7 +36,8 @@
 		2E03BDC026AC3FE00012F532 /* BWGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BWGameView.swift; sourceTree = "<group>"; };
 		2E03BDC226AC683C0012F532 /* MyDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDeck.swift; sourceTree = "<group>"; };
 		2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherDeck.swift; sourceTree = "<group>"; };
-		2E3D706726EA4D5F00FC9D70 /* DynamicSizeExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DynamicSizeExt.swift; path = CardGame/Common/DynamicSizeExt.swift; sourceTree = "<group>"; };
+		2E39235C270C488600FF8158 /* CGManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGManager.swift; sourceTree = "<group>"; };
+		2E3D706726EA4D5F00FC9D70 /* DynamicSizeExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSizeExt.swift; sourceTree = "<group>"; };
 		2E82B80226AB9AA700791E8A /* CardGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E82B80526AB9AA700791E8A /* CardGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameApp.swift; sourceTree = "<group>"; };
 		2E82B80726AB9AA700791E8A /* CCGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCGameView.swift; sourceTree = "<group>"; };
@@ -45,15 +45,13 @@
 		2E82B80C26AB9AA800791E8A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2E82B80E26AB9AA800791E8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EAF33CC26ABA89C007C55A4 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCLobbyView.swift; sourceTree = "<group>"; };
 		2EAF33D326ABC5C0007C55A4 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		2EAF33D526ABD6E2007C55A4 /* MyAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppDelegate.swift; sourceTree = "<group>"; };
 		2EAF33D726ABD766007C55A4 /* MySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySceneDelegate.swift; sourceTree = "<group>"; };
 		2EAF33DA26ABD883007C55A4 /* SocketIOManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		2EAF33DD26AC02EB007C55A4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2EAF33DF26AC090B007C55A4 /* TitleBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBar.swift; sourceTree = "<group>"; };
-		2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IHLobbyView.swift; sourceTree = "<group>"; };
-		2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BWLobbyView.swift; sourceTree = "<group>"; };
+		2EAF33E626AC0A2C007C55A4 /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
 		2EC4C3C026EB318D0098B95A /* MainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCard.swift; sourceTree = "<group>"; };
 		2EC4C3C726EB78F10098B95A /* CGDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDefine.swift; sourceTree = "<group>"; };
 		2EC4C3CA26EC77390098B95A /* CGModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGModel.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 		2E82B7F926AB9AA700791E8A = {
 			isa = PBXGroup;
 			children = (
-				2E3D706726EA4D5F00FC9D70 /* DynamicSizeExt.swift */,
 				2E82B80426AB9AA700791E8A /* CardGame */,
 				2E82B80326AB9AA700791E8A /* Products */,
 				C5C0995909CA36554D7D91FB /* Pods */,
@@ -117,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				2EAF33DD26AC02EB007C55A4 /* MainView.swift */,
+				2EAF33E626AC0A2C007C55A4 /* LobbyView.swift */,
 				2EC4C3C626EB31F00098B95A /* Card Compare */,
 				2EC4C3C426EB31DD0098B95A /* Indian Holdem */,
 				2EC4C3C326EB31C10098B95A /* Black and White */,
@@ -128,9 +126,11 @@
 			isa = PBXGroup;
 			children = (
 				2EAF33D226ABC5A9007C55A4 /* Component */,
+				2E3D706726EA4D5F00FC9D70 /* DynamicSizeExt.swift */,
 				2EAF33CC26ABA89C007C55A4 /* Card.swift */,
 				2EAF33DA26ABD883007C55A4 /* SocketIOManager.swift */,
 				2EC4C3C726EB78F10098B95A /* CGDefine.swift */,
+				2E39235C270C488600FF8158 /* CGManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -158,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				2E03BDC026AC3FE00012F532 /* BWGameView.swift */,
-				2EAF33E626AC0A2C007C55A4 /* BWLobbyView.swift */,
 				2E03BDC426AC6B8E0012F532 /* OtherDeck.swift */,
 				2E03BDC226AC683C0012F532 /* MyDeck.swift */,
 				2EC4C3C026EB318D0098B95A /* MainCard.swift */,
@@ -169,7 +168,6 @@
 		2EC4C3C426EB31DD0098B95A /* Indian Holdem */ = {
 			isa = PBXGroup;
 			children = (
-				2EAF33E526AC0A27007C55A4 /* IHLobbyView.swift */,
 			);
 			path = "Indian Holdem";
 			sourceTree = "<group>";
@@ -178,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				2E82B80726AB9AA700791E8A /* CCGameView.swift */,
-				2EAF33D026ABC57D007C55A4 /* CCLobbyView.swift */,
 			);
 			path = "Card Compare";
 			sourceTree = "<group>";
@@ -327,13 +324,12 @@
 				2EAF33E026AC090B007C55A4 /* TitleBar.swift in Sources */,
 				2EC4C3CB26EC77390098B95A /* CGModel.swift in Sources */,
 				2EC4C3C826EB78F10098B95A /* CGDefine.swift in Sources */,
-				2EAF33D126ABC57D007C55A4 /* CCLobbyView.swift in Sources */,
-				2EAF33E826AC0B85007C55A4 /* BWLobbyView.swift in Sources */,
+				2E39235D270C488600FF8158 /* CGManager.swift in Sources */,
+				2EAF33E826AC0B85007C55A4 /* LobbyView.swift in Sources */,
 				2EC4C3C126EB318D0098B95A /* MainCard.swift in Sources */,
 				2EAF33CD26ABA89C007C55A4 /* Card.swift in Sources */,
 				2E82B80626AB9AA700791E8A /* CardGameApp.swift in Sources */,
 				2EAF33DB26ABD883007C55A4 /* SocketIOManager.swift in Sources */,
-				2EAF33E726AC0B82007C55A4 /* IHLobbyView.swift in Sources */,
 				2E03BDC126AC3FE10012F532 /* BWGameView.swift in Sources */,
 				2EAF33D626ABD6E2007C55A4 /* MyAppDelegate.swift in Sources */,
 				2EAF33D826ABD766007C55A4 /* MySceneDelegate.swift in Sources */,
