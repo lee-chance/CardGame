@@ -259,17 +259,6 @@ struct BWGameView: View {
                             gameInfo.user == user?.rawValue
                                 ? iWin()
                                 : iLost()
-//                            if gameInfo.user == user?.rawValue {
-//                                iWin()
-//                            } else {
-//                                iLost()
-//                            }
-//                        case "user2":
-//                            if gameInfo.user == user?.rawValue {
-//                                iWin()
-//                            } else {
-//                                iLost()
-//                            }
                         case "draw":
                             centerText = "Draw"
                         default: break

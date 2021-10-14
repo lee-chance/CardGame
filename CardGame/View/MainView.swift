@@ -26,56 +26,22 @@ struct MainView: View {
                     .foregroundColor(Color.white)
                     .padding()
                 
-                // Card Compare
-                Button(action: {
-                    isPresent = true
-                    CGManager.shared.gameType = .cardCompare
-                }, label: {
-                    Text("Card Compare")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.yellow)
-                })
-                .padding()
-                .fullScreenCover(isPresented: $isPresent, content: {
-                    LobbyView(presented: $isPresent)
-                })
-                
-                
-                // Indian Holdem
-                Button(action: {
-                    showingAlert = true
-//                    isPresent = true
-//                    CGManager.shared.gameType = .indianHoldem
-                }, label: {
-                    Text("Indian Holdem")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.yellow)
-                })
-                .padding()
-                .fullScreenCover(isPresented: $isPresent, content: {
-                    LobbyView(presented: $isPresent)
-                })
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Not yet open."), message: Text(""), dismissButton: .default(Text("Ok")))
+                let games = Game.List.allCases.filter { $0 != .none }
+                ForEach(games, id: \.self) { game in
+                    Button(action: {
+                        isPresent = true
+                        CGManager.shared.gameList = game
+                    }, label: {
+                        Text(game.title)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.yellow)
+                    })
+                    .padding()
+                    .fullScreenCover(isPresented: $isPresent, content: {
+                        LobbyView(presented: $isPresent)
+                    })
                 }
-                
-                
-                // Black and White
-                Button(action: {
-                    isPresent = true
-                    CGManager.shared.gameType = .blackAndWhite
-                }, label: {
-                    Text("Black and White")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.yellow)
-                })
-                .padding()
-                .fullScreenCover(isPresented: $isPresent, content: {
-                    LobbyView(presented: $isPresent)
-                })
             }
             .background(Color(UIColor(white: 0.3, alpha: 0.5)))
         }

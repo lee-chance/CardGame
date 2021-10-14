@@ -10,6 +10,7 @@ import SwiftUI
 struct LobbyView: View {
     
     @Binding var presented: Bool
+    @State private var isShowAlert = false
     @State private var localGameIsPresent = false
     @State private var serverGameIsPresent = false
     @State private var name: String = ""
@@ -19,7 +20,7 @@ struct LobbyView: View {
             Background()
 
             VStack {
-                TitleBar(presented: $presented, title: CGManager.shared.gameType.title)
+                TitleBar(presented: $presented, title: CGManager.shared.gameList.title)
                 Spacer()
                 TextField("Enter your nickname!", text: $name)
                     .padding()
@@ -27,12 +28,11 @@ struct LobbyView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 Button(action: {
-                    if name.isEmpty {
-                        localGameIsPresent = false
-                        print("닉네임을 입력해라~")
-                    } else {
-                        localGameIsPresent = true
+                    guard !name.isEmpty else {
+                        isShowAlert = true
+                        return
                     }
+                    localGameIsPresent = true
                 }, label: {
                     Text("vs COMPUTER")
                         .font(.title)
@@ -40,7 +40,7 @@ struct LobbyView: View {
                         .padding()
                 })
                 .fullScreenCover(isPresented: $localGameIsPresent, content: {
-                    switch CGManager.shared.gameType {
+                    switch CGManager.shared.gameList {
                     case .cardCompare:
                         CCGameView(presented: $localGameIsPresent, playerName: name, isServer: false)
 //                    case .indianHoldem:
@@ -53,21 +53,21 @@ struct LobbyView: View {
                 })
 
                 Button(action: {
-                    if name.isEmpty {
-                        serverGameIsPresent = false
-                        print("닉네임을 입력해라~")
-                    } else {
-                        serverGameIsPresent = true
-                        SocketIOManager.shared.enter(nickname: name)
+                    guard !name.isEmpty else {
+                        isShowAlert = true
+                        return
                     }
+                    // TODO: 네트워크 체크
+                    serverGameIsPresent = true
+                    SocketIOManager.shared.enter(nickname: name)
                 }, label: {
                     Text("vs USER")
                         .font(.title)
                         .foregroundColor(Color.white)
-                        .padding(.all)
+                        .padding()
                 })
                 .fullScreenCover(isPresented: $serverGameIsPresent, content: {
-                    switch CGManager.shared.gameType {
+                    switch CGManager.shared.gameList {
                     case .cardCompare:
                         CCGameView(presented: $serverGameIsPresent, playerName: name, isServer: true)
 //                    case .indianHoldem:
@@ -81,15 +81,17 @@ struct LobbyView: View {
                 Spacer()
                 Spacer()
             }
+            .alert(isPresented: $isShowAlert) {
+                Alert(title: Text("Enter your nickname!"), message: nil, dismissButton: .default(Text("OK")))
+            }
 
         }
         .onAppear(perform: {
-            SocketIOManager.shared.establishConnection(namespace: "/\(CGManager.shared.gameType.rawValue)")
+            SocketIOManager.shared.establishConnection(namespace: "/\(CGManager.shared.gameList.rawValue)")
         })
         .onDisappear(perform: {
-            // 게임에 들어가도 실행이 안된다.
             SocketIOManager.shared.closeConnection()
-            CGManager.shared.gameType = .none
+            CGManager.shared.gameList = .none
         })
     }
     

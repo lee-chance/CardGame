@@ -15,18 +15,18 @@ struct CGDefine {
 }
 
 struct Game {
-    enum `Type`: String {
+    enum List: String, CaseIterable {
         case none
         case cardCompare
-        case indianHoldem
         case blackAndWhite
+//        case indianHoldem
         
         var title: String {
             get {
                 switch self {
                 case .cardCompare: return "Card Compare"
-                case .indianHoldem: return "Indian Holdem"
-                case .blackAndWhite: return "Black And White"
+                case .blackAndWhite: return "Black and White"
+//                case .indianHoldem: return "Indian Holdem"
                 default: return "none"
                 }
             }
